@@ -33,8 +33,8 @@ export class LandingPageComponent extends UnSub implements OnInit {
         })
       )
       .subscribe({
-        next: (users: ICharacter[]) => {
-          this.characterList.next(users);
+        next: (characters: ICharacter[]) => {
+          this.characterList.next(characters);
         },
         error: (error: any) => console.log(error),
       });

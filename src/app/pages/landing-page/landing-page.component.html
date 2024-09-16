@@ -1,1 +1,12 @@
-<p>landing-page works!</p>
+<ng-container *ngIf="characterList$ | async as characterList">
+  <div
+    class="error-message"
+    *ngIf="errorMessageAction$ | async as errorMessage"
+  >
+    {{ errorMessage }}
+  </div>
+
+  <div class="user-container">
+    <app-card *ngFor="let character of characterList"></app-card>
+  </div>
+</ng-container>
