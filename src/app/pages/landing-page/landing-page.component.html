@@ -6,7 +6,10 @@
     {{ errorMessage }}
   </div>
 
-  <div class="user-container">
-    <app-card *ngFor="let character of characterList"></app-card>
+  <div class="card-container">
+    <app-card
+      *ngFor="let character of characterList"
+      [character]="character"
+    ></app-card>
   </div>
 </ng-container>

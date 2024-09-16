@@ -13,10 +13,9 @@ import { EndpointService } from './services/endpoint.service';
 import { HttpRequestInterceptor } from './interceptor/http-request.interceptor';
 import { HttpResponseInterceptor } from './interceptor/http-response.interceptor';
 import { SettingsService } from './services/settings.service';
-import { CardComponent } from './components/card/card.component';
 
 @NgModule({
-  declarations: [AppComponent, CardComponent],
+  declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [
     EndpointService,

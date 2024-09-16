@@ -25,7 +25,7 @@ export class EndpointService {
 
   getMarvelCharacters(): Observable<ICharacter[]> {
     let params = new HttpParams()
-      .set('limit', 10)
+      .set('limit', 50)
       .set('ts', this.settingsService.apiTS)
       .set('apikey', this.settingsService.apiKey)
       .set('hash', this.settingsService.apiHash);
