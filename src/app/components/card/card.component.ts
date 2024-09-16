@@ -10,7 +10,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class CardComponent implements OnInit {
   @Input() character: ICharacter | undefined = undefined;
   @Output() deleteUser = new EventEmitter<ICharacter>();
+
   constructor(private router: Router) {}
+
+  viewCharacterDetails() {
+    this.router.navigate(['/view-details', this.character?.id]);
+  }
 
   ngOnInit(): void {}
 }

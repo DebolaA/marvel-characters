@@ -1,4 +1,8 @@
-<a class="marvel" [title]="character?.description">
+<a
+  class="marvel"
+  [title]="character?.description"
+  (click)="viewCharacterDetails()"
+>
   <div class="marvel-card">
     <div class="marvel-card-img">
       <img
