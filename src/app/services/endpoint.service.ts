@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, of, throwError } from 'rxjs';
 import { ICharacter } from '../model/character.td';
-import { HttpClient } from '@angular/common/http';
-import { environment as env } from '../../environments/environment';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { SettingsService } from './settings.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,11 +10,22 @@ import { environment as env } from '../../environments/environment';
 export class EndpointService {
   characterList$ = new BehaviorSubject<ICharacter[]>([]);
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private settingsService: SettingsService
+  ) {}
 
   getMarvelCharacters(): Observable<ICharacter[]> {
+    let params = new HttpParams()
+      .set('limit', 10)
+      .set('ts', this.settingsService.apiTS)
+      .set('apikey', this.settingsService.apiKey)
+      .set('hash', this.settingsService.apiHash);
+
     return this.http
-      .get<ICharacter[]>(`${env.BASE_URL}character`)
+      .get<ICharacter[]>(`${this.settingsService.baseUrl}characters`, {
+        params: params,
+      })
       .pipe(catchError(this.handleError));
   }
 
