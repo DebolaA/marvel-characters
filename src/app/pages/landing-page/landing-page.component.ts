@@ -25,7 +25,7 @@ export class LandingPageComponent extends UnSub implements OnInit {
     name: '',
     offset: 0,
     orderBy: 'name',
-    page: 0,
+    page: 1,
   };
 
   constructor(
@@ -61,6 +61,12 @@ export class LandingPageComponent extends UnSub implements OnInit {
 
   performSearch(searchString: string): void {
     this.payload.name = searchString;
+    this.getAllCharacters();
+  }
+
+  loadMoreBtn() {
+    this.payload.offset = this.payload.page * 50;
+    this.payload.page += 1;
     this.getAllCharacters();
   }
 
