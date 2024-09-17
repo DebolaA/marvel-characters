@@ -1,5 +1,9 @@
 <div class="isLoading" *ngIf="isLoading$ | async">Loading...</div>
 
+<div class="search-container">
+  <app-search (searchEvt)="performSearch($event)"></app-search>
+</div>
+
 <ng-container *ngIf="characterList$ | async as characterList">
   <div
     class="error-message"
@@ -12,6 +16,7 @@
     <app-card
       *ngFor="let character of characterList"
       [character]="character"
+      (navigateCharacterDetails)="viewCharacterDetails($event)"
     ></app-card>
   </div>
 </ng-container>

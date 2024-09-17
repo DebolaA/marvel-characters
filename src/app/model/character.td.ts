@@ -24,3 +24,11 @@ export interface ICharacterListResponse {
   results: ICharacter[];
   total: number;
 }
+
+export interface IQueryPayload {
+  limit: number;
+  name: string;
+  offset: number;
+  orderBy: string;
+  page: number;
+}

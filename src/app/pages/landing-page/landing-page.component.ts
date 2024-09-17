@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, catchError, of } from 'rxjs';
 import { UnSub } from '../../utils/unsubscribe';
-import { ICharacter } from '../../model/character.td';
+import { ICharacter, IQueryPayload } from '../../model/character.td';
 import { EndpointService } from '../../services/endpoint.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
@@ -19,7 +20,18 @@ export class LandingPageComponent extends UnSub implements OnInit {
   isLoading = new BehaviorSubject<boolean>(false);
   isLoading$ = this.isLoading.asObservable();
 
-  constructor(private endpointService: EndpointService) {
+  payload: IQueryPayload = {
+    limit: 50,
+    name: '',
+    offset: 0,
+    orderBy: 'name',
+    page: 0,
+  };
+
+  constructor(
+    private endpointService: EndpointService,
+    private router: Router
+  ) {
     super();
   }
 
@@ -29,7 +41,8 @@ export class LandingPageComponent extends UnSub implements OnInit {
 
   getAllCharacters() {
     this.isLoading.next(true);
-    this.endpointService.getMarvelCharacters().subscribe({
+
+    this.endpointService.getMarvelCharacters(this.payload).subscribe({
       next: (characterList: ICharacter[]) => {
         this.endpointService.characterList$.next(characterList);
         this.characterList.next(characterList);
@@ -44,5 +57,18 @@ export class LandingPageComponent extends UnSub implements OnInit {
         return of([]);
       },
     });
+  }
+
+  performSearch(searchString: string): void {
+    this.payload.name = searchString;
+    this.getAllCharacters();
+  }
+
+  viewCharacterDetails(character: ICharacter) {
+    this.router.navigate(['/view-details', character?.id]);
+  }
+
+  updatePayload(): IQueryPayload {
+    return this.payload;
   }
 }
