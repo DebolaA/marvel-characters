@@ -9,14 +9,6 @@ import { IApiResponse, ICharacter } from './model/character.td';
 })
 export class AppComponent {
   title = 'marvel-characters';
-  constructor(private endpointService: EndpointService) {
-    this.endpointService.getMarvelCharacters().subscribe({
-      next: (characterList: ICharacter[]) => {
-        this.endpointService.characterList$.next(characterList);
-        console.log(characterList);
-      },
-      error: (err: Error) => console.log(err),
-    });
-  }
+  constructor() {}
   ngOnInit() {}
 }

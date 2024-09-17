@@ -16,6 +16,9 @@ export class LandingPageComponent extends UnSub implements OnInit {
   characterList = new BehaviorSubject<ICharacter[]>([]);
   characterList$ = this.characterList.asObservable();
 
+  isLoading = new BehaviorSubject<boolean>(false);
+  isLoading$ = this.isLoading.asObservable();
+
   constructor(private endpointService: EndpointService) {
     super();
   }
@@ -25,18 +28,21 @@ export class LandingPageComponent extends UnSub implements OnInit {
   }
 
   getAllCharacters() {
-    this.endpointService.characterList$
-      .pipe(
-        catchError((error) => {
-          this.errorMessageSubject.next(error);
-          return of([]);
-        })
-      )
-      .subscribe({
-        next: (characters: ICharacter[]) => {
-          this.characterList.next(characters);
-        },
-        error: (error: any) => console.log(error),
-      });
+    this.isLoading.next(true);
+    this.endpointService.getMarvelCharacters().subscribe({
+      next: (characterList: ICharacter[]) => {
+        this.endpointService.characterList$.next(characterList);
+        this.characterList.next(characterList);
+        this.isLoading.next(false);
+      },
+      error: (err: Error) => {
+        console.log(err);
+        this.errorMessageSubject.next(
+          'Unable to load character list, please try again'
+        );
+        this.isLoading.next(false);
+        return of([]);
+      },
+    });
   }
 }

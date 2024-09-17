@@ -14,6 +14,17 @@ const routes: Routes = [
         (mod) => mod.LandingPageModule
       ),
   },
+  {
+    path: 'view-details/:id',
+    loadChildren: () =>
+      import('./pages/view-details/view-details.module').then(
+        (mod) => mod.ViewDetailsModule
+      ),
+  },
+  {
+    path: '**',
+    redirectTo: 'characters',
+  },
 ];
 
 @NgModule({

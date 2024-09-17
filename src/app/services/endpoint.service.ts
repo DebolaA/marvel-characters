@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
   catchError,
+  filter,
   map,
   Observable,
   of,
@@ -45,10 +46,24 @@ export class EndpointService {
   }
 
   getCharacterWithId(id: number): Observable<ICharacter | null> {
-    const list: ICharacter[] = this.characterList$.value;
-    const index = list.findIndex((x: ICharacter) => x.id === id);
-    if (index > -1) return of(list[index]);
-    else return of(null);
+    let params = new HttpParams()
+      .set('limit', 20)
+      .set('ts', this.settingsService.apiTS)
+      .set('apikey', this.settingsService.apiKey)
+      .set('hash', this.settingsService.apiHash);
+
+    return this.http
+      .get<IApiResponse>(`${this.settingsService.baseUrl}characters/${id}`, {
+        params: params,
+      })
+      .pipe(
+        map((response: IApiResponse) => {
+          if (response.data.results.length) {
+            return response.data.results[0];
+          } else return null;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   handleError(error: Error) {

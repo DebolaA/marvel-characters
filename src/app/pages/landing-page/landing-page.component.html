@@ -1,3 +1,5 @@
+<div class="isLoading" *ngIf="isLoading$ | async">Loading...</div>
+
 <ng-container *ngIf="characterList$ | async as characterList">
   <div
     class="error-message"

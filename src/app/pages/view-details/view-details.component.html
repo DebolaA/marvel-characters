@@ -1,0 +1,22 @@
+<div class="error-message" *ngIf="messageAction$ | async as errorMessage">
+  {{ errorMessage }}
+</div>
+
+<div class="details" *ngIf="character">
+  <div class="details-img">
+    <img
+      src="{{ character?.thumbnail?.path }}.{{
+        character?.thumbnail?.extension
+      }}"
+      alt="{{ character?.name }}"
+    />
+  </div>
+  <div class="details-content">
+    <h1>{{ character?.name }}</h1>
+    <p>{{ character?.description }}</p>
+  </div>
+</div>
+
+<div class="back-link-container">
+  <a class="back-link" (click)="navigateBack()">&#60;-- Go Back</a>
+</div>
