@@ -1,0 +1,21 @@
+<a
+  class="marvel"
+  [title]="character?.description"
+  (click)="viewCharacterDetails()"
+>
+  <div class="marvel-card">
+    <div class="marvel-card-img">
+      <img
+        class="thumbnail"
+        src="{{ character?.thumbnail?.path }}.{{
+          character?.thumbnail?.extension
+        }}"
+        alt="{{ character?.name }}"
+      />
+    </div>
+    <div class="marvel-card-body">
+      <p class="marvel-name">{{ character?.name }}</p>
+      <p class="marvel-description">{{ character?.description }}</p>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,70 @@
+.marvel {
+  width: 250px;
+  height: 320px;
+  margin: 10px;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #fefefe;
+  box-shadow: 4px 3px 8px 0px rgb(200 152 44);
+  transition-duration: 0.3s;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    box-shadow: 4px 3px 11px 6px rgb(143, 141, 136);
+    transform: translateY(-3px);
+    cursor: pointer;
+  }
+
+  &-card-img {
+    position: relative;
+    background-color: transparent;
+    height: 220px;
+    color: #000;
+    text-align: center;
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      height: 100%;
+      width: 100%;
+    }
+    p {
+      position: absolute;
+      top: 50%;
+      transform: translateX(150%);
+    }
+  }
+
+  &-card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 140px;
+    background-color: #000;
+    padding: 10px;
+  }
+
+  &-name {
+    color: #fff;
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &-description {
+    color: #fff;
+    font-weight: 300;
+    font-size: 16px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}

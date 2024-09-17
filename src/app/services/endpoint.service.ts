@@ -1,6 +1,15 @@
+import { ICharacter } from './../model/character.td';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, of, throwError } from 'rxjs';
-import { ICharacter } from '../model/character.td';
+import {
+  BehaviorSubject,
+  catchError,
+  filter,
+  map,
+  Observable,
+  of,
+  throwError,
+} from 'rxjs';
+import { IApiResponse } from '../model/character.td';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { SettingsService } from './settings.service';
 
@@ -17,23 +26,44 @@ export class EndpointService {
 
   getMarvelCharacters(): Observable<ICharacter[]> {
     let params = new HttpParams()
-      .set('limit', 10)
+      .set('limit', 50)
       .set('ts', this.settingsService.apiTS)
       .set('apikey', this.settingsService.apiKey)
       .set('hash', this.settingsService.apiHash);
 
     return this.http
-      .get<ICharacter[]>(`${this.settingsService.baseUrl}characters`, {
+      .get<IApiResponse>(`${this.settingsService.baseUrl}characters`, {
         params: params,
       })
-      .pipe(catchError(this.handleError));
+      .pipe(
+        map((response: IApiResponse) => {
+          return response.data.results.map(
+            (character: ICharacter) => character
+          );
+        }),
+        catchError(this.handleError)
+      );
   }
 
   getCharacterWithId(id: number): Observable<ICharacter | null> {
-    const list: ICharacter[] = this.characterList$.value;
-    const index = list.findIndex((x: ICharacter) => x.id === id);
-    if (index > -1) return of(list[index]);
-    else return of(null);
+    let params = new HttpParams()
+      .set('limit', 20)
+      .set('ts', this.settingsService.apiTS)
+      .set('apikey', this.settingsService.apiKey)
+      .set('hash', this.settingsService.apiHash);
+
+    return this.http
+      .get<IApiResponse>(`${this.settingsService.baseUrl}characters/${id}`, {
+        params: params,
+      })
+      .pipe(
+        map((response: IApiResponse) => {
+          if (response.data.results.length) {
+            return response.data.results[0];
+          } else return null;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   handleError(error: Error) {

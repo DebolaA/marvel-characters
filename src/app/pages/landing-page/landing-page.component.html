@@ -1,0 +1,17 @@
+<div class="isLoading" *ngIf="isLoading$ | async">Loading...</div>
+
+<ng-container *ngIf="characterList$ | async as characterList">
+  <div
+    class="error-message"
+    *ngIf="errorMessageAction$ | async as errorMessage"
+  >
+    {{ errorMessage }}
+  </div>
+
+  <div class="card-container">
+    <app-card
+      *ngFor="let character of characterList"
+      [character]="character"
+    ></app-card>
+  </div>
+</ng-container>
