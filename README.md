@@ -1,7 +1,8 @@
 # MarvelCharacters
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.4.
-This application list Marvel Characters, scroll through character list, filter list by character name and view character details by clicking the character card.
+This application lists Marvel Characters, filter list by character name, view character details by clicking the character card.
+User is also able to scroll through the character list
 
 ## Development server
 
