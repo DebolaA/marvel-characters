@@ -1,26 +1,22 @@
 # MarvelCharacters
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.4.
+This application list Marvel Characters, scroll through character list, filter list by character name and view character details by clicking the character card.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Clone or for this repository here - `https://github.com/DebolaA/marvel-characters.git`
+Create a `config.json` file at the root of your repository to provide all application secrets such as API key
+`config.json` file must have the following properties - BASE_URL, API_KEY, HASH, TS
+`BASE_URL` used is `https://gateway.marvel.com/v1/public/`
+`API_KEY` can be generated here - `https://developer.marvel.com/`
+`HASH` can be computed by following the instructions on this page here - `https://developer.marvel.com/documentation/authorization`
+Run `npm install` to get you started.
+Run `ng run start` for a dev server. Navigate to `http://localhost:4300/`. The application will automatically reload if you change any of the source files.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Further help
 
