@@ -13,6 +13,7 @@ import { EndpointService } from './services/endpoint.service';
 import { HttpRequestInterceptor } from './interceptor/http-request.interceptor';
 import { HttpResponseInterceptor } from './interceptor/http-response.interceptor';
 import { SettingsService } from './services/settings.service';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [AppComponent],

@@ -1,4 +1,4 @@
-import { ICharacter } from './../model/character.td';
+import { ICharacter, IQueryPayload } from './../model/character.td';
 import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
@@ -24,12 +24,18 @@ export class EndpointService {
     private settingsService: SettingsService
   ) {}
 
-  getMarvelCharacters(): Observable<ICharacter[]> {
+  getMarvelCharacters(payload: IQueryPayload): Observable<ICharacter[]> {
     let params = new HttpParams()
-      .set('limit', 50)
+      .set('limit', payload.limit)
       .set('ts', this.settingsService.apiTS)
       .set('apikey', this.settingsService.apiKey)
       .set('hash', this.settingsService.apiHash);
+
+    if (payload.offset) params = params.append('offset', payload.offset);
+    if (payload.name && payload.name.length)
+      params = params.append('name', payload.name);
+    if (payload.orderBy.length)
+      params = params.append('orderBy', payload.orderBy);
 
     return this.http
       .get<IApiResponse>(`${this.settingsService.baseUrl}characters`, {
